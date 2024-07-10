@@ -12,15 +12,12 @@ while (True):
     #cur_time = (str(cur_time)).replace('.'+str(cur_time.microsecond),"")
     cur_time=str(cur_time.date())+" "+str(cur_time.hour)+":"+str(cur_time.minute)+":"+str(cur_time.second)
     print(cur_load," ",cur_time,)
-    #print(datetime.datetime.now()+datetime.timedelta(hours=-1));
-
-
+    
     try:
         fetch = f'''begin;
          insert into cpu_load_info(cur_data,cpu_load_in_percent) 
         values ('{cur_time}',{cur_load});
         commit;'''
-
 
         with connection.cursor() as cursor:
             cursor.execute(fetch)
