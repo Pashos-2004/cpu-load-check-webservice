@@ -12,7 +12,7 @@ def read_root():
 
     date = str(date.date()) + " " + str(date.hour) + ":" + str(date.minute) + ":" + str(date.second)
     with connection.cursor() as cursor:
-        cursor.execute(f"\select * from cpu_load_info where cur_data>='{date}'")
+        cursor.execute(f"select * from cpu_load_info where cur_data>='{date}'")
         data=cursor.fetchall()
         print(data)
     return data
