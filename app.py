@@ -84,6 +84,7 @@ def show_graph_fisrt():
     image_path1 = Path("First_graph.png")
     if not image_path1.is_file():
         return {"error": "Image1 not found on the server"}
+
     return FileResponse(image_path1)
 
 @app.get("/show_graphs/second")
