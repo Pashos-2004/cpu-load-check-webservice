@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4035e18-7a28-4c05-a4ce-ecc85c19593c" name="Changes" comment="Добавлено сохранение графиков в .png на хосте, однако нужно уточнить второй график.">
+    <list default="true" id="e4035e18-7a28-4c05-a4ce-ecc85c19593c" name="Changes" comment="Добавлено поминутное усреднение для второго графика">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
@@ -92,13 +92,22 @@
       <option name="project" value="LOCAL" />
       <updated>1720611263155</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Добавлено поминутное усреднение для второго графика">
+      <option name="closed" value="true" />
+      <created>1720613732116</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1720613732116</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Оболочка 2.0" />
     <MESSAGE value="Первая рабочая версия, добавлен запрос к корневому каталогу(можно получить загрузку процессора за последний час)" />
     <MESSAGE value="Добавлено сохранение графиков в .png на хосте, однако нужно уточнить второй график." />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлено сохранение графиков в .png на хосте, однако нужно уточнить второй график." />
+    <MESSAGE value="Добавлено поминутное усреднение для второго графика" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлено поминутное усреднение для второго графика" />
   </component>
 </project>

@@ -3,7 +3,10 @@ import uvicorn
 import psycopg2
 import datetime
 import  matplotlib.pyplot as plt
-import  matplotlib.dates as plt_d
+from fastapi.responses import FileResponse
+from pathlib import Path
+import io
+from starlette.responses import StreamingResponse
 app = FastAPI()
 
 connection = psycopg2.connect(dbname='CPU_LOAD', user='postgres', password='1111', host='127.0.0.1');
@@ -73,13 +76,23 @@ def save_graphs_as_png():
     interval = 1 / (24 * 60)
     plt.bar(x2,y2,interval)
     plt.savefig("Second_graph.png")
+    plt.close('all')
 
-@app.get("/show_graphs")
-def show_graphs():
+@app.get("/show_graphs/first")
+def show_graph_fisrt():
     save_graphs_as_png()
-    return ("print")
-    pass
+    image_path1 = Path("First_graph.png")
+    if not image_path1.is_file():
+        return {"error": "Image1 not found on the server"}
+    return FileResponse(image_path1)
 
+@app.get("/show_graphs/second")
+def show_graph_second():
+    save_graphs_as_png()
+    image_path2 = Path("Second_graph.png")
+    if not image_path2.is_file():
+        return {"error": "Image2 not found on the server"}
+    return FileResponse(image_path2)
 uvicorn.run(
         app,
         host='localhost',
