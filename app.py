@@ -37,21 +37,41 @@ def save_graphs_as_png():
         data = cursor.fetchall()
     x=[]
     y=[]
+    x2=[]
+    y2=[]
+    summ=0;
+    count = 1;
+    prev_date=_date
     x.append(_date)
     y.append(0)
 
+    x2.append(_date+datetime.timedelta(minutes=-1))
+    y2.append(0)
     for i in range(len(data)):
         x.append(data[i][0])
         y.append(data[i][1])
+        if(prev_date.minute==data[i][0].minute):
+            summ+=data[i][1]
+            count+=1;
+        else:
+            x2.append(prev_date)
+            y2.append(summ/count)
+            prev_date=data[i][0]
+            summ=data[i][1]
+            count=1
+
     x.append(datetime.datetime.now()+datetime.timedelta(seconds=+1))
     y.append(0)
+    x2.append(datetime.datetime.now() + datetime.timedelta(minutes=+1))
+    y2.append(0)
     #plt.plot(x,y)
     plt.bar(x,y,interval)
 
     plt.savefig("First_graph.png")
     plt.close('all')
+
     interval = 1 / (24 * 60)
-    plt.bar(x,y,interval)
+    plt.bar(x2,y2,interval)
     plt.savefig("Second_graph.png")
 
 @app.get("/show_graphs")
