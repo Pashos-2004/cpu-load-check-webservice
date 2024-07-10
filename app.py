@@ -2,6 +2,8 @@ from fastapi import BackgroundTasks, FastAPI
 import uvicorn
 import psycopg2
 import datetime
+import  matplotlib.pyplot as plt
+import  matplotlib.dates as plt_d
 app = FastAPI()
 
 connection = psycopg2.connect(dbname='CPU_LOAD', user='postgres', password='1111', host='127.0.0.1');
@@ -18,6 +20,45 @@ def read_root():
         data=cursor.fetchall()
 
     return data
+
+
+def save_graphs_as_png():
+
+    cur_date = datetime.datetime.now()
+
+    date = cur_date + datetime.timedelta(hours=-1);
+    _date = date + datetime.timedelta(seconds=-1);
+    interval = 5/(24*60*60)
+
+    date = str(date.date()) + " " + str(date.hour) + ":" + str(date.minute) + ":" + str(date.second)
+    cur_date = str(cur_date.date()) + " " + str(cur_date.hour) + ":" + str(cur_date.minute) + ":" + str(cur_date.second)
+    with connection.cursor() as cursor:
+        cursor.execute(f"select * from cpu_load_info where cur_data>='{date}'")
+        data = cursor.fetchall()
+    x=[]
+    y=[]
+    x.append(_date)
+    y.append(0)
+
+    for i in range(len(data)):
+        x.append(data[i][0])
+        y.append(data[i][1])
+    x.append(datetime.datetime.now()+datetime.timedelta(seconds=+1))
+    y.append(0)
+    #plt.plot(x,y)
+    plt.bar(x,y,interval)
+
+    plt.savefig("First_graph.png")
+    plt.close('all')
+    interval = 1 / (24 * 60)
+    plt.bar(x,y,interval)
+    plt.savefig("Second_graph.png")
+
+@app.get("/show_graphs")
+def show_graphs():
+    save_graphs_as_png()
+    return ("print")
+    pass
 
 uvicorn.run(
         app,
