@@ -8,13 +8,15 @@ connection = psycopg2.connect(dbname='CPU_LOAD', user='postgres', password='1111
 
 @app.get("/")
 def read_root():
-    date=datetime.datetime.now()+datetime.timedelta(hours=-1);
+    cur_date=datetime.datetime.now()
+    date=cur_date+datetime.timedelta(hours=-1);
 
     date = str(date.date()) + " " + str(date.hour) + ":" + str(date.minute) + ":" + str(date.second)
+    cur_date=str(cur_date.date()) + " " + str(cur_date.hour) + ":" + str(cur_date.minute) + ":" + str(cur_date.second)
     with connection.cursor() as cursor:
         cursor.execute(f"select * from cpu_load_info where cur_data>='{date}'")
         data=cursor.fetchall()
-        print(data)
+
     return data
 
 uvicorn.run(
